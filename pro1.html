@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: aliceblue;
+            font-family: Arial;
+        }
+        .r{
+            height: 50px;
+            background-color: black;
+        }
+        .in{
+            background-color: transparent;
+            border: 3px solid white;
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .e{
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+        .q{
+            margin-top: 60px;
+        }
+        .s{
+
+            padding:  9px 15px;
+            border: none;
+            font-size:15px;
+            cursor: pointer;
+            color: brown;
+
+
+        }
+
+    </style>
+</head>
+<body>
+            <h1>Rock Paper Scissors</h1>
+            <button onclick="
+             play('Rock');
+            "class="in"><img src="rock.jpg" class="r"></button>
+            <button onclick="
+            play('Paper');
+            " class="in"><img src="paper.jpg"class="r" ></button>
+            <button onclick="
+            play('Scissors');
+            "class="in"><img src="scissors.jpg"class="r"></button>
+            <p class="js-qw" class="e"></p>
+            <p class="js-er"></p>
+            <p class="js-nm q"></p>
+            <button onclick="
+            score.wins=0;
+            score.loose=0;
+            score.ties=0;
+            localStorage.removeItem('score');
+            update();
+            " class="s">Reset</button>
+        
+        
+            <script>
+                let score=JSON.parse(localStorage.getItem('score'))||{
+                    wins:0,
+                    loose:0,
+                    ties:0
+                };
+                update();
+                function play(player){
+                    const bc=result();
+                let c='';
+                if(player==='Rock')
+                {
+
+                if(bc === 'rock')
+                {
+                    c='ties';
+                }else if(bc === 'Paper')
+                {
+                    c='loose';
+                }else if(bc==='Scissors')
+                {
+                    c='won';
+                }
+            }
+            
+            else if(player === 'Paper'){
+                        
+                    if(bc === 'rock')
+                    {
+                        c='won';
+                    }else if(bc === 'Paper')
+                    {
+                        c='ties';
+                    }else if(bc==='Scissors')
+                    {
+                        c='loose';
+                    }
+            }
+
+            else if(player==='Scissors'){
+                
+            if(bc === 'rock')
+            {
+                c='loose';
+
+            }else if(bc === 'Paper')
+            {
+                c='won';
+            }else if(bc==='Scissors')
+            {
+                c='ties';
+            }
+          
+            }
+            if(c==='won'){
+                score.wins+=1;
+            }else if(c==='loose'){
+                score.loose+=1;
+            }else if(c==='ties'){
+                score.ties+=1;
+            }
+            localStorage.setItem('score',JSON.stringify(score));
+            update();  
+            document.querySelector('.js-qw').innerHTML=c;
+            document.querySelector('.js-er').innerHTML=`  You
+                <img src="${player}.jpg" class="r">
+                <img src="${bc}.jpg" class="r">
+                Computer`;
+                }
+                function update(){
+                    document.querySelector('.js-nm').innerHTML=`Wins:${score.wins},Losses:${score.loose},Ties:${score.ties}`;
+                }
+
+                
+                function result() {
+                    const a=Math.random();
+            let b='';
+            if(a>=0 && a<1/3)
+            {
+                b='rock';
+            }
+            else if(a>=1/3 && a<2/3)
+            {
+                b='Paper';
+            }
+            else if(a>=2/3 && a<1)
+            {
+                b='Scissors';
+            }
+            return b;
+
+                }
+            </script>
+
+        </body>
+        </html>
